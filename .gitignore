@@ -1,0 +1,42 @@
+# Secrets
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+myenv/
+.venv/
+
+# Editor/OS lock & temp files
+.~lock.*#
+*.swp
+nohup.out
+
+# Logs
+*.log
+
+# Backups
+*.bak
+*_archive.log
+
+# IG Markets / runtime state
+.ig_data_backoff
+*_day_info.txt
+*_day_info.txt.*
+*_day_info_archive.log
+*.yfmark
+
+# Scratch backtest working directories (regenerated on each run)
+tickbt_scratch/
+
+# Messy duplicate/experimental price data at repo root
+# (the canonical one-CSV-per-market set — Cprice.csv, Dprice.csv, Fprice.csv,
+# HSprice.csv, Nprice.csv — stays tracked; this folder held stale copies,
+# renamed duplicates and one-off pulls)
+/price/
+
+# Regenerable output from 15mindata.py
+/gapdata/
