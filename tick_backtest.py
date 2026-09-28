@@ -222,6 +222,9 @@ def build_and_seed(warmup_start, source_paths, lookback_days=150):
     fwt, controller, EPIC_TO_KEY = build_harness()
     lookback_start = (warmup_start - timedelta(days=lookback_days)).strftime('%Y-%m-%d')
     for key, cfg in fwt.MARKET_CONFIGS.items():
+        if key not in source_paths:
+            print(f"  [skip] market '{key}' has no source_paths entry (no price CSV supplied) — not seeded, excluded from this backtest")
+            continue
         seed_history(fwt, key, cfg, source_paths[key], warmup_start.strftime('%Y-%m-%d'), lookback_start)
     return fwt, controller, EPIC_TO_KEY
 
@@ -256,6 +259,8 @@ def step_range(fwt, controller, ig, start, end, source_paths, record_start):
     import contextlib, io
     bars_by_market = {}
     for key, cfg in fwt.MARKET_CONFIGS.items():
+        if key not in source_paths:
+            continue
         rows = []
         with open(source_paths[key]) as f:
             for row in csv.reader(f):
@@ -263,7 +268,7 @@ def step_range(fwt, controller, ig, start, end, source_paths, record_start):
                     rows.append(row)
         bars_by_market[key] = {r[0]: r for r in rows}
 
-    market_keys = list(fwt.MARKET_CONFIGS.keys())
+    market_keys = [k for k in fwt.MARKET_CONFIGS.keys() if k in source_paths]
     tick = start
     n_ticks = 0
     errors = []
@@ -273,6 +278,8 @@ def step_range(fwt, controller, ig, start, end, source_paths, record_start):
             ts_str = tick.strftime('%Y-%m-%dT%H:%M:%S')
             appended_any = False
             for key, cfg in fwt.MARKET_CONFIGS.items():
+                if key not in bars_by_market:
+                    continue
                 row = bars_by_market[key].get(ts_str)
                 if row is not None:
                     with open(cfg.data_path, 'a', newline='') as f:
