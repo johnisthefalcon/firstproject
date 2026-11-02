@@ -16,11 +16,11 @@ from trading_ig import IGService
 #   export IG_ACC_TYPE="DEMO"   # or "LIVE"
 #   export IG_ACC_NUMBER="your_account_number"
 
-IG_USERNAME   = os.environ.get("IG_USERNAME", "REMOVED-SECRET")
-IG_PASSWORD   = os.environ.get("IG_PASSWORD", "REMOVED-SECRET")
-IG_API_KEY    = os.environ.get("IG_API_KEY",  "REMOVED-SECRET")
+IG_USERNAME   = os.environ.get("IG_USERNAME", "")
+IG_PASSWORD   = os.environ.get("IG_PASSWORD", "")
+IG_API_KEY    = os.environ.get("IG_API_KEY",  "")
 IG_ACC_TYPE   = os.environ.get("IG_ACC_TYPE", "DEMO")   # "DEMO" or "LIVE"
-IG_ACC_NUMBER = os.environ.get("IG_ACC_NUMBER", "REMOVED-SECRET")
+IG_ACC_NUMBER = os.environ.get("IG_ACC_NUMBER", "")
 
 
 def connect():

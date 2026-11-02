@@ -3678,8 +3678,11 @@ def search_markets(ig: IGService, search_term: str = "FTSE"):
 
 def telegram_bitbot(message):
     
-    TOKEN = "REMOVED-SECRET"
-    chat_id = "REMOVED-SECRET"
+    TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "")
+    if not TOKEN or not chat_id:
+        print("[telegram] TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID not set - alert not sent")
+        return
     message = message
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     print(requests.get(url).json()) 

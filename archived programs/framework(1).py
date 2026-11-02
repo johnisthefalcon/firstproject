@@ -925,11 +925,11 @@ import csv
 #   export IG_API_KEY="your_api_key"
 #   export IG_ACC_TYPE="LIVE"
 #   export IG_ACC_NUMBER="your_account_number"
-IG_USERNAME   = os.environ.get("IG_USERNAME", "REMOVED-SECRET")
-IG_PASSWORD   = os.environ.get("IG_PASSWORD", "REMOVED-SECRET")
-IG_API_KEY    = os.environ.get("IG_API_KEY",  "REMOVED-SECRET")
+IG_USERNAME   = os.environ.get("IG_USERNAME", "")
+IG_PASSWORD   = os.environ.get("IG_PASSWORD", "")
+IG_API_KEY    = os.environ.get("IG_API_KEY",  "")
 IG_ACC_TYPE   = os.environ.get("IG_ACC_TYPE", "LIVE")   # "DEMO" or "LIVE"
-IG_ACC_NUMBER = os.environ.get("IG_ACC_NUMBER", "REMOVED-SECRET")
+IG_ACC_NUMBER = os.environ.get("IG_ACC_NUMBER", "")
 
 import os
 from trading_ig import IGService
@@ -1119,8 +1119,8 @@ def search_markets(ig: IGService, search_term: str = "FTSE"):
 
 def telegram_bitbot(message):
     
-    TOKEN = "REMOVED-SECRET"
-    chat_id = "REMOVED-SECRET"
+    TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "")
     message = message
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message}"
     print(requests.get(url).json()) 
